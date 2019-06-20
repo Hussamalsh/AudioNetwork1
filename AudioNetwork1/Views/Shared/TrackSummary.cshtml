@@ -1,0 +1,53 @@
+﻿@model TrackComposerViewModel
+
+
+@{
+    Track trackObj = Model.Track;
+    Composer composerObj = Model.Composer;
+}
+
+<div class="well">
+    <h3>
+        <strong>@trackObj.Title</strong>
+    </h3>
+    <form id="@trackObj.Id" asp-action="AddToCart"
+          asp-controller="Cart" method="post">
+        @*input type="hidden" asp-for="Id" />*@
+        <input type="hidden" name="returnUrl"
+               value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+        <span class="lead">
+            @trackObj.Genre
+            <button type="button" class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#myModal">
+                View composer
+            </button>
+        </span>
+    </form>
+</div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Composer Info</h4>
+        </div>
+
+        <div class="modal-body">
+          
+            <p>Name: @composerObj.Title @composerObj.FirstName @composerObj.LastName</p>
+
+            <p>Award : @composerObj.Award</p>
+
+        </div>
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
